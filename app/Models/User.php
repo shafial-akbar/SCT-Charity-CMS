@@ -39,6 +39,37 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
     }
 
+    public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return Permission::query()
+            ->whereHas('roles', function ($query) {
+                $query->whereIn('roles.id', $this->roles()->pluck('roles.id'));
+            });
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->roles()->where('slug', $role)->exists();
+    }
+
+    public function hasAnyRole(array $roles): bool
+    {
+        return $this->roles()->whereIn('slug', $roles)->exists();
+    }
+
+    public function hasPermission(string $permission): bool
+    {
+        if ($this->hasRole('super-admin')) {
+            return true;
+        }
+
+        return $this->roles()
+            ->whereHas('permissions', function ($query) use ($permission) {
+                $query->where('permissions.slug', $permission);
+            })
+            ->exists();
+    }
+
     public function uploadedMedia(): HasMany
     {
         return $this->hasMany(Media::class, 'uploaded_by');
