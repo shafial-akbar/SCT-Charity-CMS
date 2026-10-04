@@ -2,24 +2,24 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     * Seed the application's database.
+     * Seed the application's base authorization data and initial Super Admin.
+     *
+     * This seeder is intentionally idempotent:
+     * - Roles and permissions are upserted by RolePermissionSeeder.
+     * - Role/permission assignments are synchronized to the finalized design.
+     * - The Super Admin user is created only when the configured email does not exist.
+     * - Existing Super Admin passwords are not overwritten on subsequent runs.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            RolePermissionSeeder::class,
+            AdminUserSeeder::class,
         ]);
     }
 }

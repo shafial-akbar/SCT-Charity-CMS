@@ -11,35 +11,27 @@ class Role extends Model
     use HasUuids;
 
     protected $fillable = [
-        'name',
-        'slug',
-        'description',
+        'name', 'slug', 'description',
     ];
 
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(
-            User::class,
-            'user_roles',
-            'role_id',
-            'user_id'
+            User::class, 'user_roles', 'role_id', 'user_id'
         );
     }
 
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(
-            Permission::class,
-            'role_permissions',
-            'role_id',
-            'permission_id'
+            Permission::class, 'role_permissions', 'role_id', 'permission_id'
         );
     }
 
     public function hasPermission(string $permission): bool
     {
         return $this->permissions()
-            ->where('slug', $permission)
+            ->where('permissions.slug', $permission)
             ->exists();
     }
 }
