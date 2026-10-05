@@ -12,12 +12,17 @@ use Illuminate\View\View;
 
 class AdminLoginController extends Controller
 {
-    public function create(): View|RedirectResponse
-    {
-        if (Auth::check()) {
-            return redirect()->route('admin.dashboard');
-        }
+    // public function create(): View|RedirectResponse
+    // {
+    //     if (Auth::check()) {
+    //         return redirect()->route('admin.dashboard');
+    //     }
 
+    //     return view('admin.auth.login');
+    // }
+
+    public function create(): View
+    {
         return view('admin.auth.login');
     }
 

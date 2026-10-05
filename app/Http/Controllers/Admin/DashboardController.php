@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function __invoke(): View
+    public function index(): View
     {
         $stats = [
             'users' => User::count(),
@@ -19,7 +19,10 @@ class DashboardController extends Controller
             'permissions' => Permission::count(),
         ];
 
-        $recentUsers = User::with('roles')->latest()->take(5)->get();
+        $recentUsers = User::with('roles')
+            ->latest()
+            ->take(5)
+            ->get();
 
         return view('admin.dashboard', compact('stats', 'recentUsers'));
     }
