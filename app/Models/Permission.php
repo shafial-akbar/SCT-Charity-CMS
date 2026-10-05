@@ -11,20 +11,13 @@ class Permission extends Model
     use HasUuids;
 
     protected $fillable = [
-        'name',
-        'slug',
-        'module',
-        'action',
-        'description',
+        'name', 'slug', 'module', 'action', 'description',
     ];
 
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(
-            Role::class,
-            'role_permissions',
-            'permission_id',
-            'role_id'
+            Role::class, 'role_permissions', 'permission_id', 'role_id'
         );
     }
 }

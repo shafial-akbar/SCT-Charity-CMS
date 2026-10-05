@@ -66,6 +66,18 @@ class RolePermissionSeeder extends Seeder
                 'delete'
             ],
             [
+                'users.roles.assign',
+                'Users — Assign Role',
+                'users.roles',
+                'assign'
+            ],
+            [
+                'users.roles.remove',
+                'Users — Remove Role',
+                'users.roles',
+                'remove'
+            ],
+            [
                 'roles.view',
                 'Roles — View',
                 'roles',
@@ -906,6 +918,8 @@ class RolePermissionSeeder extends Seeder
             'users.create',
             'users.update',
             'users.delete',
+            'users.roles.assign',
+            'users.roles.remove',
             'roles.view',
             'roles.create',
             'roles.update',

@@ -7,22 +7,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'status',
-        'last_login_at',
+        'name', 'email', 'password', 'status', 'last_login_at',
     ];
 
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     protected function casts(): array
@@ -36,10 +32,15 @@ class User extends Authenticatable
 
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+        return $this->belongsToMany(
+            Role::class, 'user_roles', 'user_id', 'role_id'
+        );
     }
 
-    public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    /**
+     * Returns a query for all permissions inherited through this user's roles.
+     */
+    public function permissions()
     {
         return Permission::query()
             ->whereHas('roles', function ($query) {
