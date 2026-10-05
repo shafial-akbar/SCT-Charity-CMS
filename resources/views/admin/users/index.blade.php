@@ -62,18 +62,53 @@
                                 {{ $user->roles->pluck('name')->join(', ') ?: 'No role' }}
                             </td>
                             <td class="px-6 py-4 text-right whitespace-nowrap">
-                                @can('users.update')
-                                    <a href="{{ route('admin.users.edit', $user) }}" class="text-sm font-medium text-gray-900 hover:underline">Edit</a>
-                                @endcan
-                                @can('users.delete')
-                                    @if(auth()->id() !== $user->id)
-                                        <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="ml-3 inline" onsubmit="return confirm('Delete this user?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="text-sm font-medium text-red-600 hover:underline">Delete</button>
-                                        </form>
-                                    @endif
-                                @endcan
+                                <div style="display:flex; align-items:center; justify-content:flex-end; gap:8px;">
+
+                                    @can('users.update')
+                                        <a href="{{ route('admin.users.edit', $user) }}"
+                                        style="display:inline-block;
+                                                padding:8px 14px;
+                                                border:1px solid #d1d5db;
+                                                border-radius:8px;
+                                                background:#ffffff;
+                                                color:#374151;
+                                                font-size:14px;
+                                                font-weight:500;
+                                                text-decoration:none;
+                                                line-height:20px;
+                                                box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                                            Edit
+                                        </a>
+                                    @endcan
+
+                                    @can('users.delete')
+                                        @if(auth()->id() !== $user->id)
+                                            <form method="POST"
+                                                action="{{ route('admin.users.destroy', $user) }}"
+                                                style="display:inline;"
+                                                onsubmit="return confirm('Delete this user?')">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                        style="display:inline-block;
+                                                            padding:8px 14px;
+                                                            border:1px solid #fecaca;
+                                                            border-radius:8px;
+                                                            background:#ffffff;
+                                                            color:#dc2626;
+                                                            font-size:14px;
+                                                            font-weight:500;
+                                                            line-height:20px;
+                                                            cursor:pointer;
+                                                            box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        @endif
+                                    @endcan
+
+                                </div>
                             </td>
                         </tr>
                     @empty
