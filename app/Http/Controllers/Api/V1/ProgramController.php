@@ -5,38 +5,50 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProgramResource;
 use App\Models\Program;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProgramController extends Controller
 {
+    /**
+     * Get all published programs.
+     */
     public function index(Request $request)
     {
+        $perPage = min(
+            max($request->integer('per_page', 12), 1),
+            50
+        );
+
         $programs = Program::query()
             ->with('featuredImage')
             ->where('status', 'published')
-            ->when($request->filled('search'), function ($q) use ($request) {
-                $search = $request->string('search')->toString();
-                $q->where(function ($q) use ($search) {
-                    $q->where('title_en', 'like', "%{$search}%")
-                        ->orWhere('title_bn', 'like', "%{$search}%");
-                });
-            })
             ->orderBy('sort_order')
-            ->latest()
-            ->paginate(min((int) $request->input('per_page', 15), 50));
+            ->latest('published_at')
+            ->paginate($perPage);
 
         return ProgramResource::collection($programs);
     }
 
-    public function show(string $slug)
+    /**
+     * Get a single published program by English or Bangla slug.
+     */
+    public function show(string $slug): ProgramResource|JsonResponse
     {
-        $program = Program::with('featuredImage')
+        $program = Program::query()
+            ->with('featuredImage')
             ->where('status', 'published')
-            ->where(function ($q) use ($slug) {
-                $q->where('slug_en', $slug)
+            ->where(function ($query) use ($slug) {
+                $query->where('slug_en', $slug)
                     ->orWhere('slug_bn', $slug);
             })
-            ->firstOrFail();
+            ->first();
+
+        if (!$program) {
+            return response()->json([
+                'message' => 'Program not found.',
+            ], 404);
+        }
 
         return new ProgramResource($program);
     }

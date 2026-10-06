@@ -9,7 +9,11 @@
         <p class="mt-1 text-sm text-gray-500">Update the bilingual program.</p>
     </div>
 
-    <form method="POST" action="{{ route('admin.programs.update', $program) }}" class="rounded-xl border border-gray-200 bg-white p-6">
+    <form
+    method="POST"
+    action="{{ route('admin.programs.update', $program) }}"
+    enctype="multipart/form-data"
+    >
         @method('PUT')
         @include('admin.programs._form', ['submitLabel' => 'Save Changes'])
     </form>

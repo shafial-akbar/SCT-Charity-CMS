@@ -22,9 +22,27 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('web')
                 ->group(base_path('routes/admin-pages.php'));
 
+            // Programs Admin CRUD routes
+            Route::middleware('web')
+                ->group(base_path('routes/admin-programs.php'));
+
             // Pages + Page Sections Public API routes
             Route::middleware('api')
                 ->group(base_path('routes/api-pages.php'));
+
+                // Programs Public API routes
+            Route::middleware('api')
+                ->group(base_path('routes/api-programs.php'));
+
+                // Projects Admin CRUD routes
+            Route::middleware('web')
+                ->group(base_path('routes/admin-projects.php'));
+
+            // Projects Public API routes
+            Route::middleware('api')
+                ->group(base_path('routes/api-projects.php'));
+
+                
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {

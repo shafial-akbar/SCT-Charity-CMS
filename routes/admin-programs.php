@@ -7,6 +7,7 @@ Route::prefix('admin')
     ->name('admin.')
     ->middleware('auth')
     ->group(function () {
+
         Route::get('/programs', [ProgramController::class, 'index'])
             ->middleware('web.permission:programs.view')
             ->name('programs.index');

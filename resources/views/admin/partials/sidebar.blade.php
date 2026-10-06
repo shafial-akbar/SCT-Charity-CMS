@@ -33,11 +33,15 @@
 
             <div class="px-3 pb-1 pt-6 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">CMS</div>
             @if ($adminUser?->hasPermission('pages.view'))
-                <div class="rounded-xl px-3 py-2.5 text-sm text-slate-500">Pages <span class="ml-1 text-[10px] uppercase">next</span></div>
+                    <a href="{{ route('admin.pages.index') }}" class="{{ request()->routeIs('admin.pages.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }} flex items-center rounded-xl px-3 py-2.5 text-sm font-medium">Pages</a>
             @endif
-            @if ($adminUser?->hasPermission('projects.view'))
-                <div class="rounded-xl px-3 py-2.5 text-sm text-slate-500">Projects <span class="ml-1 text-[10px] uppercase">next</span></div>
+            @if ($adminUser?->hasPermission('programs.view'))
+                    <a href="{{ route('admin.programs.index') }}" class="{{ request()->routeIs('admin.programs.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }} flex items-center rounded-xl px-3 py-2.5 text-sm font-medium">Programs</a>
             @endif
+            @if ($adminUser?->hasPermission('programs.view'))
+                <a href="{{ route('admin.projects.index') }}" class="{{ request()->routeIs('admin.projects.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }} flex items-center rounded-xl px-3 py-2.5 text-sm font-medium">Projects</a>
+            @endif
+
         </div>
 
         <div class="mt-auto border-t border-slate-800 pt-4">

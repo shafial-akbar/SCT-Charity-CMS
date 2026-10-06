@@ -9,7 +9,10 @@
         <p class="mt-1 text-sm text-gray-500">Create a bilingual program.</p>
     </div>
 
-    <form method="POST" action="{{ route('admin.programs.store') }}" class="rounded-xl border border-gray-200 bg-white p-6">
+    <form
+    method="POST"
+    action="{{ route('admin.programs.store') }}"
+    enctype="multipart/form-data">
         @include('admin.programs._form', ['submitLabel' => 'Create Program'])
     </form>
 </div>
