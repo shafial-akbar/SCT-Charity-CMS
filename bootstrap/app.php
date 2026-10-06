@@ -30,11 +30,11 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('api')
                 ->group(base_path('routes/api-pages.php'));
 
-                // Programs Public API routes
+            // Programs Public API routes
             Route::middleware('api')
                 ->group(base_path('routes/api-programs.php'));
 
-                // Projects Admin CRUD routes
+            // Projects Admin CRUD routes
             Route::middleware('web')
                 ->group(base_path('routes/admin-projects.php'));
 
@@ -42,8 +42,36 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('api')
                 ->group(base_path('routes/api-projects.php'));
 
-                
+            // People Admin CRUD routes
+            Route::middleware('web')
+                ->group(base_path('routes/admin-people.php'));
+
+            // People Public API routes
+            Route::middleware('api')
+                ->group(base_path('routes/api-people.php'));
+
+            // Gallery Photos Admin CRUD routes
+            Route::middleware('web')
+                ->group(base_path('routes/admin-gallery-photos.php'));
+
+            // Gallery Admin CRUD routes
+            Route::middleware('web')
+                ->group(base_path('routes/admin-gallery.php'));
+
+            // Gallery + Gallery Photos Public API routes
+            Route::middleware('api')
+                ->group(base_path('routes/api-gallery.php'));
+
+            // Project Activities Admin CRUD routes
+            Route::middleware('web')
+                ->group(base_path('routes/admin-project-activities.php'));
+
+            // Project Activities Public API routes
+            Route::middleware('api')
+                ->group(base_path('routes/api-project-activities.php'));
+
         },
+
     )
     ->withMiddleware(function (Middleware $middleware): void {
 

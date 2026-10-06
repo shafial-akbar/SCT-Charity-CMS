@@ -41,7 +41,36 @@
             @if ($adminUser?->hasPermission('programs.view'))
                 <a href="{{ route('admin.projects.index') }}" class="{{ request()->routeIs('admin.projects.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }} flex items-center rounded-xl px-3 py-2.5 text-sm font-medium">Projects</a>
             @endif
-
+            @if ($adminUser?->hasPermission('people.view'))
+                <a href="{{ route('admin.people.index') }}"
+                class="{{ request()->routeIs('admin.people.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }} flex items-center rounded-xl px-3 py-2.5 text-sm font-medium">
+                    People
+                </a>
+            @endif
+            @if ($adminUser?->hasPermission('galleries.view'))
+                <a href="{{ route('admin.galleries.index') }}"
+                class="{{ request()->routeIs('admin.galleries.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }} flex items-center rounded-xl px-3 py-2.5 text-sm font-medium">
+                    Galleries
+                </a>
+            @endif
+            @if ($adminUser?->hasPermission('gallery_categories.view'))
+                <a href="{{ route('admin.gallery-categories.index') }}"
+                class="{{ request()->routeIs('admin.gallery-categories.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }} flex items-center rounded-xl px-3 py-2.5 text-sm font-medium">
+                    Gallery Categories
+                </a>
+            @endif
+            @if ($adminUser?->hasPermission('gallery_photos.view'))
+                <a href="{{ route('admin.gallery-photos.index') }}"
+                class="{{ request()->routeIs('admin.gallery-photos.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }} flex items-center rounded-xl px-3 py-2.5 text-sm font-medium">
+                    Gallery Photos
+                </a>
+            @endif
+            @if ($adminUser?->hasPermission('project_activities.view'))
+                <a href="{{ route('admin.project-activities.index') }}"
+                class="{{ request()->routeIs('admin.project-activities.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }} flex items-center rounded-xl px-3 py-2.5 text-sm font-medium">
+                    Project Activities
+                </a>
+            @endif
         </div>
 
         <div class="mt-auto border-t border-slate-800 pt-4">

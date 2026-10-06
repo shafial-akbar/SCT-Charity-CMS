@@ -473,7 +473,6 @@ return new class extends Migration
         Schema::create('people', function (Blueprint $t) {
             $t->uuid('id')->primary();
 
-            // Person's actual name is language-neutral.
             $t->string('name');
 
             $t->string('designation_en')->nullable();
@@ -481,6 +480,9 @@ return new class extends Migration
 
             $t->longText('biography_en')->nullable();
             $t->longText('biography_bn')->nullable();
+
+            $t->longText('message_en')->nullable();
+            $t->longText('message_bn')->nullable();
 
             $t->uuid('photo_id')->nullable();
 
